@@ -1,10 +1,67 @@
 import React from "react";
+import { useState } from "react";
 import "./Form.css";
 
-function Form({newNumbers, operation, handleChange, handleOperation}) {
+function Form() {
+
+  const [newNumbers, setNewNumbers] = useState("")
+
+  const [operation, setOperation] = useState("")
+
+  const [result, setResult] = useState("")
+
+
+  function handleChange(event){
+    const inputValue = event.target.value
+    const numbersArray = inputValue.split(",")
+    setNewNumbers(numbersArray)
+  }
+
+  function handleOperation(event){
+    console.log(event.target.value)
+    setOperation(event.target.value)
+  }
+
+  function calculateResult(newNumbers, operation){
+    const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
+    if(operation === "sum"){
+      const sum = filteredNumbers.reduce((acc, current) => {
+        return acc + parseInt(current)
+      }, 0)
+      return sum
+    } else if(operation === "average"){
+      const mean = filteredNumbers.reduce((acc, current) => {
+        return acc + parseFloat(current)
+      }, 0) / filteredNumbers.length 
+      return mean
+    } else if(operation === "mode"){
+      const count = filteredNumbers.reduce((acc, current) => {
+        if(!acc[current]){
+          acc[current] = 1
+        } else {
+          acc[current] = acc[current] + 1
+        }
+        return acc
+      }, {})
+      const highestCount = Math.max(...Object.values(count))
+      const mode = Object.keys(count).find(key => count[key] === highestCount)
+      return mode
+    }
+  }
+
+  function handleSubmit(event){
+    event.preventDefault()
+    // if(!newNumbers.every((number) => !isNaN(number))){
+    //   setError("Invalid input.")
+
+    // } 
+    const newResult = calculateResult(newNumbers, operation)
+    setResult(newResult)
+    // setError("")
+  }
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input 
         onChange={handleChange}
         value={newNumbers}
@@ -24,7 +81,7 @@ function Form({newNumbers, operation, handleChange, handleOperation}) {
         <button type="submit">Calculate</button>
       </form>
       <section id="result">
-        <p></p>
+        <p>{result ? result : "Invalid input."}</p>
       </section>
     </>
   );
