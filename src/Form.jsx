@@ -56,7 +56,6 @@ function Form() {
     event.preventDefault()
     setError("")
     const newResult = calculateResult(newNumbers, operation)
-    newResult !== null && setResult(newResult)
     if(newResult !== null){
       setResult(newResult)
       reset()
