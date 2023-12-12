@@ -49,7 +49,7 @@ function Form() {
             modes.push(num);
           }
         });
-        //if theres no mode it wants to return a 1 in the intructions
+        //if theres no mode it wants to return a 1 in the instructions
         if (maxFrequency === 1) {
           setResult("1");
         } else {
