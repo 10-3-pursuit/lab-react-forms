@@ -23,7 +23,7 @@ function Form() {
 
   function calculateResult(newNumbers, operation){
     const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
-    if(filteredNumbers.some((number) => isNaN(number))){
+    if(filteredNumbers.some((number) => isNaN(number)) || filteredNumbers,length === 0){
       setError("Invalid input.")
       return null
     } else if(operation === "sum"){
