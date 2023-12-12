@@ -26,12 +26,12 @@ function Form() {
     switch (operation) {
 
       case "sum":
-        setResult(numbers.reduce((acc, val) => acc + val, 0));
+        setResult(numbers.reduce((acc, number) => acc + number, 0));
         break;
         
       case "average":
         setResult(
-          numbers.reduce((acc, val) => acc + val, 0) / numbers.length
+          numbers.reduce((acc, number) => acc + number, 0) / numbers.length
         );
         break;
 
