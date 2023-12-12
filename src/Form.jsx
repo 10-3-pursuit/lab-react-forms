@@ -1,7 +1,7 @@
 import React from "react";
 import "./Form.css";
 
-function Form({newNumbers, handleChange}) {
+function Form({newNumbers, operation, handleChange, handleOperation}) {
   return (
     <>
       <form>
@@ -12,7 +12,8 @@ function Form({newNumbers, handleChange}) {
         name="values" 
         type="text" />
         <select 
-        
+        onChange={handleOperation}
+        value={operation}
         id="operation" 
         name="operation">
           <option value=""></option>
