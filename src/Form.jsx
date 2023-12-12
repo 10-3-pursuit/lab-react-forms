@@ -15,6 +15,7 @@ function Form() {
     const numbersArray = inputValue.split(",")
     setNewNumbers(numbersArray)
     setError("")
+
   }
 
   function handleOperation(event){
@@ -23,7 +24,7 @@ function Form() {
 
   function calculateResult(newNumbers, operation){
     const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
-    if(filteredNumbers.some((number) => isNaN(number)) || filteredNumbers,length === 0){
+    if(filteredNumbers.some((number) => isNaN(number)) || filteredNumbers.length === 0){
       setError("Invalid input.")
       return null
     } else if(operation === "sum"){
@@ -56,7 +57,16 @@ function Form() {
     setError("")
     const newResult = calculateResult(newNumbers, operation)
     newResult !== null && setResult(newResult)
+    if(newResult !== null){
+      setResult(newResult)
+      reset()
+    }
   }
+
+  function reset(){
+    setNewNumbers([])
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
