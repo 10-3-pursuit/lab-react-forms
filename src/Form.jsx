@@ -4,27 +4,29 @@ import "./Form.css";
 
 function Form() {
 
-  const [newNumbers, setNewNumbers] = useState("")
-
+  const [newNumbers, setNewNumbers] = useState([])
   const [operation, setOperation] = useState("")
-
   const [result, setResult] = useState("")
+  const [error, setError] = useState("")
 
 
   function handleChange(event){
     const inputValue = event.target.value
     const numbersArray = inputValue.split(",")
     setNewNumbers(numbersArray)
+    setError("")
   }
 
   function handleOperation(event){
-    console.log(event.target.value)
     setOperation(event.target.value)
   }
 
   function calculateResult(newNumbers, operation){
     const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
-    if(operation === "sum"){
+    if(filteredNumbers.some((number) => isNaN(number))){
+      setError("Invalid input.")
+      return null
+    } else if(operation === "sum"){
       const sum = filteredNumbers.reduce((acc, current) => {
         return acc + parseInt(current)
       }, 0)
@@ -51,13 +53,9 @@ function Form() {
 
   function handleSubmit(event){
     event.preventDefault()
-    // if(!newNumbers.every((number) => !isNaN(number))){
-    //   setError("Invalid input.")
-
-    // } 
+    setError("")
     const newResult = calculateResult(newNumbers, operation)
-    setResult(newResult)
-    // setError("")
+    newResult !== null && setResult(newResult)
   }
   return (
     <>
@@ -81,7 +79,7 @@ function Form() {
         <button type="submit">Calculate</button>
       </form>
       <section id="result">
-        <p>{result ? result : "Invalid input."}</p>
+        <p>{error ? error : result}</p>
       </section>
     </>
   );
