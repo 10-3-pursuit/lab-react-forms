@@ -11,7 +11,7 @@ function Form() {
   const formSubmit = (e) => {
     e.preventDefault();
     calculateResult();
-    console.log("result:", result);
+    formReset();
   }
 
   const handleInputChange = (e) => {
@@ -34,21 +34,32 @@ function Form() {
     }
   }
 
+  const formReset = () => {
+    
+  }
+
   const calculateResult = () => {
+    const operation = numbersAndOp.operation;
+    if (!operation) {
+      alert("Invalid input.");
+      return null;
+    }
+
     const numbers = [];
+    // console.log("values array:", numbersAndOp.values);
     for (const value of numbersAndOp.values) {
-      const n = Number(value.trim());
+      const trimmedVal = value.trim();
+      if (trimmedVal === "") {
+        alert("Invalid input.")
+        return null;
+      }
+      const n = Number(trimmedVal);
+      console.log("number:", n);
       if (isNaN(n)) {
         alert("Invalid input.");
         return null;
       }
       numbers.push(n);
-    }
-    
-    const operation = numbersAndOp.operation;
-    if (!operation) {
-      alert("Invalid input.");
-      return null;
     }
 
     if (numbers.length > 0) {
@@ -69,7 +80,6 @@ function Form() {
             }
             return acc;
           }, {});
-          // const counts = {};
           newResult = numbers[0];
           let highestCount = counts[numbers[0]];
           for (const num in counts) {
