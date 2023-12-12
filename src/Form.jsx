@@ -1,10 +1,10 @@
 import React from "react";
 import "./Form.css";
 
-function Form() {
+function Form({calculate}) {
   return (
     <>
-      <form>
+      <form onSubmit={calculate}>
         <input id="values" name="values" type="text" />
         <select id="operation" name="operation">
           <option value=""></option>
