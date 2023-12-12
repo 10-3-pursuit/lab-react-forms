@@ -10,8 +10,9 @@ function Form() {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    calculateResult();
-    formReset();
+    const calculation = calculateResult();
+    setResult(calculation);
+    calculation !== 'Invalid input.' && formReset();
   }
 
   const handleInputChange = (e) => {
@@ -35,35 +36,33 @@ function Form() {
   }
 
   const formReset = () => {
-    
+    setNumbersAndOp({
+      values: [],
+      operation: ""
+    })
   }
 
   const calculateResult = () => {
     const operation = numbersAndOp.operation;
     if (!operation) {
-      alert("Invalid input.");
-      return null;
+      return "Invalid input.";
     }
 
     const numbers = [];
-    // console.log("values array:", numbersAndOp.values);
     for (const value of numbersAndOp.values) {
       const trimmedVal = value.trim();
       if (trimmedVal === "") {
-        alert("Invalid input.")
-        return null;
+        continue;
       }
       const n = Number(trimmedVal);
-      console.log("number:", n);
       if (isNaN(n)) {
-        alert("Invalid input.");
-        return null;
+        return "Invalid input.";
       }
       numbers.push(n);
     }
 
+    let newResult = null;
     if (numbers.length > 0) {
-      let newResult = null;
       switch (numbersAndOp.operation) {
         case "sum":
           newResult = numbers.reduce((acc, curr) => acc + curr, 0);
@@ -93,11 +92,10 @@ function Form() {
         default:
           break;
       }
-      setResult(newResult);
     } else {
-      alert("Invalid input.");
-      return null;
+      newResult = "Invalid input.";
     }
+    return newResult;
   }
 
   return (
@@ -109,6 +107,7 @@ function Form() {
         id="values" name="values" type="text" />
         <select
           onChange={handleInputChange}
+          value={numbersAndOp.operation}
           id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
@@ -118,7 +117,7 @@ function Form() {
         <button type="submit">Calculate</button>
       </form>
       <section id="result">
-        <p>{result && ("Result: " + result)}</p>
+        <p>{result && (typeof result === 'number' ? ("Result: " + result) : result)}</p>
       </section>
     </>
   );
