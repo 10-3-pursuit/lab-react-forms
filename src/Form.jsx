@@ -92,10 +92,10 @@ function Form() {
         default:
           break;
       }
+      return newResult;
     } else {
-      newResult = "Invalid input.";
+      return "Invalid input.";
     }
-    return newResult;
   }
 
   return (
@@ -104,10 +104,12 @@ function Form() {
         <input
         onChange={handleInputChange}
         value={numbersAndOp.values.join(",")}
+        className={result === 'Invalid input.' ? "error" : ""}
         id="values" name="values" type="text" />
         <select
           onChange={handleInputChange}
           value={numbersAndOp.operation}
+          className={result === 'Invalid input.' ? "error" : ""}
           id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
