@@ -42,11 +42,14 @@ function Form() {
 
     if (newNumbers.dropDown === 'sum') {
       resultValue = sum
+
     } else if (newNumbers.dropDown === 'average') {
       const average = sum / numbersArr.length
-      resultValue = isNaN(average) ? '' : average
+      resultValue = average
+
     } else if (newNumbers.dropDown === 'mode') {
       resultValue = findMode(numbersArr)
+
     } else {
       resultValue = ''
     }
@@ -66,6 +69,7 @@ function Form() {
       if (frequency[num] > maxFrequency) {
         maxFrequency = frequency[num]
         modes = [num]
+        
       } else if (frequency[num] === maxFrequency) {
         modes.push(num)
       }
