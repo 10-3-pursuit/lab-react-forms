@@ -1,12 +1,12 @@
 import React from "react";
 import "./Form.css";
 
-function Form() {
+function Form({submit, handleInputChange, handleOpChange}) {
   return (
     <>
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit={submit}>
+        <input onChange={handleInputChange}id="values" name="values" type="text" />
+        <select onChange={handleOpChange} id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
