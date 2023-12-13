@@ -15,7 +15,6 @@ function Form() {
     const numbersArray = inputValue.split(",")
     setNewNumbers(numbersArray)
     setError("")
-
   }
 
   function handleOperation(event){
@@ -24,6 +23,7 @@ function Form() {
 
   function calculateResult(newNumbers, operation){
     const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
+    
     if(filteredNumbers.some((number) => isNaN(number)) || filteredNumbers.length === 0){
       setError("Invalid input.")
       return null
