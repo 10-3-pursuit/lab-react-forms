@@ -10,6 +10,7 @@ function Form() {
   const handleChange = (e) => {
     setNumbersArray(e.target.value.split(','));
   }
+
   const handleOperation = (e) => {
     setOperation(e.target.value);
   }
@@ -34,18 +35,22 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const numArray = numbersArray.map((num) => Number(num));
-    switch (operation) {
-      case 'sum':
-        setResult(getSum(numArray))
-        break;
-      case 'average':
-        setResult(getAverage(numArray))
-        break;
-      case 'mode':
-        setResult(getMode(numArray));
-        break;
+    if (operation === "" || numArray.some(isNaN) || numArray.length === 0) {
+      setResult("Invalid Input.");
+    } else {
+      switch (operation) {
+        case 'sum':
+          setResult(getSum(numArray))
+          break;
+        case 'average':
+          setResult(getAverage(numArray))
+          break;
+        case 'mode':
+          setResult(getMode(numArray));
+          break;
+      }
+      reset();
     }
-    reset();
   }
 
   const reset = () => {
