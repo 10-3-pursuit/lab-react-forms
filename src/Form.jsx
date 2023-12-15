@@ -4,7 +4,7 @@ import { useState } from "react";
 function Form() {
 
   const [numbersArray, setNumbersArray] = useState([]);
-  const [operation, setOperation] = useState();
+  const [operation, setOperation] = useState("");
 
   const handleChange = (e) => {
     setNumbersArray(e.target.value.split(','))
@@ -15,7 +15,7 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(numbersArray)
+    // console.log(numbersArray)
     switch (operation) {
       case 'sum':
         console.log('sum');
@@ -27,8 +27,13 @@ function Form() {
         console.log('mode');
         break;
     }
-    // reset
+    reset();
   }
+
+  const reset = () => {
+    setNumbersArray([]);
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -44,7 +49,8 @@ function Form() {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button
+          type="submit">Calculate</button>
       </form>
       <section id="result">
         <p></p>
