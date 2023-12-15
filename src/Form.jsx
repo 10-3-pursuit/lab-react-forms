@@ -8,15 +8,25 @@ function Form() {
 
   const handleChange = (e) => {
     setNumbersArray(e.target.value.split(','))
-    console.log(numbersArray)
   }
   const handleOperation = (e) => {
     setOperation(e.target.value);
-    console.log(operation)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(numbersArray)
+    switch (operation) {
+      case 'sum':
+        console.log('sum');
+        break;
+      case 'average':
+        console.log('average');
+        break;
+      case 'mode':
+        console.log('mode');
+        break;
+    }
     // reset
   }
   return (
