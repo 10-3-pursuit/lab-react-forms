@@ -5,26 +5,44 @@ function Form() {
 
   const [numbersArray, setNumbersArray] = useState([]);
   const [operation, setOperation] = useState("");
+  const [result, setResult] = useState();
 
   const handleChange = (e) => {
-    setNumbersArray(e.target.value.split(','))
+    setNumbersArray(e.target.value.split(','));
   }
   const handleOperation = (e) => {
     setOperation(e.target.value);
   }
 
+  const getSum = (numbers) => {
+    return numbers.reduce((sum, n) => sum + n);
+  }
+
+  const getAverage = (numbers) => {
+    return getSum(numbers) / numbers.length;
+  }
+
+  const getMode = (numbers) => {
+    const numberCounts = {};
+    numbers.forEach((n) => {
+      numberCounts[n] === undefined ? numberCounts[n] = 1 : numberCounts[n]++;
+    })
+    const max = Math.max(...Object.values(numberCounts));
+    return Object.keys(numberCounts).find(key => numberCounts[key] === max);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(numbersArray)
+    const numArray = numbersArray.map((num) => Number(num));
     switch (operation) {
       case 'sum':
-        console.log('sum');
+        setResult(getSum(numArray))
         break;
       case 'average':
-        console.log('average');
+        setResult(getAverage(numArray))
         break;
       case 'mode':
-        console.log('mode');
+        setResult(getMode(numArray));
         break;
     }
     reset();
@@ -53,7 +71,7 @@ function Form() {
           type="submit">Calculate</button>
       </form>
       <section id="result">
-        <p></p>
+        <p>{result}</p>
       </section>
     </>
   );
