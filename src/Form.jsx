@@ -4,10 +4,15 @@ import { useState } from "react";
 function Form() {
 
   const [numbersArray, setNumbersArray] = useState([]);
+  const [operation, setOperation] = useState();
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setNumbersArray(e.target.value.split(','))
     console.log(numbersArray)
+  }
+  const handleOperation = (e) => {
+    setOperation(e.target.value);
+    console.log(operation)
   }
 
   const handleSubmit = (e) => {
@@ -19,10 +24,12 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
-          // value={numbersArray}
+          value={numbersArray}
           id="values" name="values" type="text" />
-        <select id="operation" name="operation">
-          <option value=""></option>
+        <select
+          onChange={handleOperation}
+          id="operation" name="operation">
+          <option value="" hidden default >select</option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
