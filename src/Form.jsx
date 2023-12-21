@@ -1,13 +1,63 @@
 import React from "react";
 import "./Form.css";
+import { useState } from "react";
 
 function Form() {
+    const [newNumbers, setNewNumbers] = useState([])
+    const [operation, setOperation] = useState("")
+
+    const [result, setResult] = useState("")
+  function handleChange(event){
+    const inputValue = event.target.value
+    const numbersArray = inputValue.split(",")
+    setNewNumbers(numbersArray)
+  }
   
+  function handleOperation(event){
+    setOperation(event.target.value)
+  }
+  
+  function calculateResult(newNumbers, operation){
+    const filteredNumbers = newNumbers.filter((number) => number.trim() !== "")
+    
+    if(operation === "sum"){
+      const sum = filteredNumbers.reduce((acc, current) => {
+        return acc + parseInt(current)
+      }, 0)
+      return sum
+    } else if(operation === "average"){
+      const mean = filteredNumbers.reduce((acc, current) => {
+        return acc + parseFloat(current)
+      }, 0) / filteredNumbers.length 
+      return mean
+    } else if(operation === "mode"){
+      const count = filteredNumbers.reduce((acc, current) => {
+        if(!acc[current]){
+          acc[current] = 1
+        } else {
+          acc[current] = acc[current] + 1
+        }
+        return acc
+      }, {})
+      const highestCount = Math.max(...Object.values(count))
+      const mode = Object.keys(count).find(key => count[key] === highestCount)
+      return mode
+    }
+  }
+  
+  function handleSubmit(event){
+    event.preventDefault()
+    const newResult = calculateResult(newNumbers, operation)
+    
+      setResult(newResult)
+    
+  }
+
   return (
     <>
-      <form>
-        <input id="values" name="values" type="text" />
-        <select id="operation" name="operation">
+      <form onSubmit={handleSubmit}>
+        <input onChange={handleChange} value={newNumbers} id="values" name="values" type="text" />
+        <select onChange={handleOperation} value={operation} id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
@@ -16,10 +66,14 @@ function Form() {
         <button type="submit">Calculate</button>
       </form>
       <section id="result">
-        <p></p>
+        <p>
+        {result}
+        </p>
       </section>
     </>
   );
 }
+
+  
 
 export default Form;
