@@ -89,6 +89,7 @@ function Form() {
     const numArray = newCalc.numInput.split(',').map(num => Number(num.trim()));
     const calculatedResult = calculateResult(numArray, newCalc.operation);
     setResult(calculatedResult);
+    reset();
   };
 
   const reset = () => {
