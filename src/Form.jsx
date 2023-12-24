@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import Result from "./Result";
 import "./Form.css";
 
 function Form() {
@@ -109,7 +108,6 @@ function Form() {
         <button type="submit">Calculate</button>
       </form>
       <section id="result">
-        {/* <Result result={result} /> */}
         {/* no need to make a result component to export / import because useState is already here with the data needed which is just the outputs of operation functions */}
         {result}
       </section>
