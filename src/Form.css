@@ -1,5 +1,15 @@
+
+
 input.error,
 select.error {
   border: 1px solid red;
   outline: none !important;
 }
+
+
+.form-num {
+  background-color: rgb(96, 69, 36);
+  border: 2px solid blue;
+  border-radius: 20%;
+}
+
